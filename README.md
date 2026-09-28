@@ -11,7 +11,6 @@ Aplicación **end-to-end** de gestión de Pedidos con autenticación JWT, constr
 Prueba\_NET\_React/
 ├── Pedidos.API/
 │   |
-│   ├── Pedidos.API/
 │   │   ├── Pedidos.Domain/          # Entidades y reglas de negocio puras
 │   │   ├── Pedidos.Application/     # Casos de uso, DTOs, interfaces
 │   │   ├── Pedidos.Infrastructure/  # EF Core, JWT, BCrypt, repositorios
@@ -102,12 +101,7 @@ Pedido**, **Editar Pedido**, **Navbar** con navegación y logout.
 La aplicación aplica las migraciones de EF Core y siembra datos de prueba al arrancar
 (ver `DbSeeder.cs`), por lo que **no necesitas ejecutar ningún script manualmente**.
 
-Si prefieres levantar SQL Server rápido con Docker:
 
-```bash
-docker run -e "ACCEPT\_EULA=Y" -e "SA\_PASSWORD=YourStrong(!)Password" \\
-  -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
-```
 
 **Opción B:** ejecutar manualmente `backend/database/schema.sql` contra tu instancia de SQL Server
 (script referencial, útil para revisar el modelo sin correr la app).
@@ -118,16 +112,16 @@ docker run -e "ACCEPT\_EULA=Y" -e "SA\_PASSWORD=YourStrong(!)Password" \\
 cd backend
 
 # Ajusta la cadena de conexión si es necesario en:
-# src/RetoFullstack.API/appsettings.json  ->  ConnectionStrings:DefaultConnection
+# Prueba_NET_React/Pedidos.API/appsettings.json  ->  ConnectionStrings:DefaultConnection
 
 # Restaurar dependencias y compilar
 dotnet restore
 dotnet build
 
 # (Opcional) generar la migración inicial si aún no existe:
-cd src/RetoFullstack.API
+cd Prueba_NET_React.API
 dotnet tool install --global dotnet-ef   # si no lo tienes instalado
-dotnet ef migrations add InitialCreate --project ../RetoFullstack.Infrastructure --startup-project .
+dotnet ef migrations add InitialCreate --project ../Pedidos.Infrastructure --startup-project .
 
 # Ejecutar la API (aplica migraciones y siembra datos automáticamente)
 dotnet run
